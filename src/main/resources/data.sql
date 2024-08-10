@@ -1,0 +1,3 @@
+INSERT INTO USERS VALUES (11, 'test', 'test');
+INSERT INTO USERS VALUES (12, 'tes', 'tes');
+INSERT INTO USERS VALUES (13, 'te', 'te');
