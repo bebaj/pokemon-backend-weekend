@@ -12,6 +12,7 @@ import com.mindtech.pokemon_backend.model.User;
 import com.mindtech.pokemon_backend.service.UserService;
 @RestController
 public class UserController {
+    @Autowired
     UserService userService;
     @GetMapping("/user")
     private List<User> getAllUser()
