@@ -1,55 +1,43 @@
 package com.mindtech.pokemon_backend.controller;
+import com.mindtech.pokemon_backend.dto.RegisterRequest;
+import com.mindtech.pokemon_backend.model.Pokemon;
+import com.mindtech.pokemon_backend.model.User;
+import com.mindtech.pokemon_backend.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import com.mindtech.pokemon_backend.model.Pokemon;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-import com.mindtech.pokemon_backend.model.User;
-import com.mindtech.pokemon_backend.service.UserService;
 @RestController
+@RequestMapping("/users")
 public class UserController {
+
     @Autowired
-    UserService userService;
-    @GetMapping("/user")
-    private List<User> getAllUser()
-    {
-        return userService.getAllUser();
+    private UserService userService;
+
+    @PostMapping("/register")
+    public ResponseEntity<User> register(@RequestBody RegisterRequest request) {
+        User user = userService.registerUser(request.getUsername(), request.getPassword());
+        return ResponseEntity.ok(user);
     }
-    @GetMapping("/user/{id}")
-    private User getUser(@PathVariable("id") int id)
-    {
-        return userService.getUserById(id);
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
+        // Spring Security handles login, this method can be customized if needed.
+        return ResponseEntity.ok("Login successful");
     }
-    @DeleteMapping("/user/{id}")
-    private void deleteUser(@PathVariable("id") int id)
-    {
-        userService.delete(id);
-    }
-    @PostMapping("/user")
-    private int saveUser(@RequestBody User user)
-    {
-        userService.saveOrUpdate(user);
-        return user.getId();
-    }
+
     @GetMapping("/{userId}/pokemons")
-    public List<Pokemon> getUserPokemons(@PathVariable("userId") int userId) {
+    public List<Pokemon> getPokemons(@PathVariable Integer userId) {
         return userService.getUserPokemons(userId);
     }
-
-    @PostMapping("/{userId}/pokemons")
-    public Pokemon addPokemonToUser(@PathVariable("userId") int userId, @RequestBody Pokemon pokemon) {
-        return userService.addPokemonToUser(userId, pokemon);
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
-    @DeleteMapping("/pokemons/{pokemonId}")
-    public void removePokemonFromUser(@PathVariable("pokemonId") int pokemonId) {
-        userService.removePokemonFromUser(pokemonId);
+    @DeleteMapping("/{userId}/pokemons/{pokemonId}")
+    public void releasePokemon(@PathVariable Integer userId, @PathVariable Integer pokemonId) {
+        userService.releasePokemon(userId, pokemonId);
     }
-
 }

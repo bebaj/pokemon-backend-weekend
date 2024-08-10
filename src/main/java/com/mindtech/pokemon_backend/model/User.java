@@ -21,10 +21,11 @@ public class User{
 
     }
 
-    public User(int id, String username, String password) {
+    public User(int id, String username, String password, List<Pokemon> pokemons) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.pokemons = pokemons;
     }
 
     public int getId() {
