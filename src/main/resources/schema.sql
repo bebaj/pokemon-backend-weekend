@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS USERS;
-CREATE TABLE USERS (
-                      id INT AUTO_INCREMENT  PRIMARY KEY,
-                      username VARCHAR(12) NOT NULL,
-                      password VARCHAR(12) NOT NULL
+CREATE TABLE users (
+                       id SERIAL PRIMARY KEY,
+                       username VARCHAR(255) UNIQUE NOT NULL,
+                       password VARCHAR(255) NOT NULL
 );

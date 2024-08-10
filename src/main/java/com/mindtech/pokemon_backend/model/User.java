@@ -1,11 +1,11 @@
 package com.mindtech.pokemon_backend.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 @Entity
-@Table
+@Table(name="users")
 public class User{
     @Id
     @Column
@@ -20,6 +20,11 @@ public class User{
         this.username = username;
         this.password = password;
     }
+
+    public User() {
+
+    }
+
     public int getId() {
         return id;
     }
