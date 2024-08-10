@@ -1,9 +1,9 @@
 package com.mindtech.pokemon_backend.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
+
 @Entity
 @Table(name="users")
 public class User{
@@ -15,14 +15,16 @@ public class User{
     @Column
     private String password;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Pokemon> pokemons;
+    public User() {
+
+    }
+
     public User(int id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
-    }
-
-    public User() {
-
     }
 
     public int getId() {
@@ -47,5 +49,12 @@ public class User{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    public List<Pokemon> getPokemons() {
+        return pokemons;
+    }
+
+    public void setPokemons(List<Pokemon> pokemons) {
+        this.pokemons = pokemons;
     }
 }

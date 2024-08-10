@@ -1,15 +1,9 @@
 package com.mindtech.pokemon_backend.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.Collections;
 import java.util.List;
-import javax.persistence.ElementCollection;
-import javax.persistence.CollectionTable;
-import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name = "pokemons")
@@ -27,6 +21,17 @@ public class Pokemon {
 
     @Column(nullable = false)
     private double height;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @ElementCollection
     @CollectionTable(name = "pokemon_abilities", joinColumns = @JoinColumn(name = "pokemon_id"))
@@ -34,10 +39,10 @@ public class Pokemon {
     private List<String> abilities;
 
     // Constructors
-    public Pokemon() {
-    }
+    public Pokemon() {}
 
-    public Pokemon(String name, double weight, double height, List<String> abilities) {
+    public Pokemon(int id, String name, double weight, double height, List<String> abilities) {
+        this.id = id;
         this.name = name;
         this.weight = weight;
         this.height = height;

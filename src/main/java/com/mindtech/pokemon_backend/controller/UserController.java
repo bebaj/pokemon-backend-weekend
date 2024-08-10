@@ -1,6 +1,8 @@
 package com.mindtech.pokemon_backend.controller;
 
 import java.util.List;
+
+import com.mindtech.pokemon_backend.model.Pokemon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,4 +37,19 @@ public class UserController {
         userService.saveOrUpdate(user);
         return user.getId();
     }
+    @GetMapping("/{userId}/pokemons")
+    public List<Pokemon> getUserPokemons(@PathVariable("userId") int userId) {
+        return userService.getUserPokemons(userId);
+    }
+
+    @PostMapping("/{userId}/pokemons")
+    public Pokemon addPokemonToUser(@PathVariable("userId") int userId, @RequestBody Pokemon pokemon) {
+        return userService.addPokemonToUser(userId, pokemon);
+    }
+
+    @DeleteMapping("/pokemons/{pokemonId}")
+    public void removePokemonFromUser(@PathVariable("pokemonId") int pokemonId) {
+        userService.removePokemonFromUser(pokemonId);
+    }
+
 }
