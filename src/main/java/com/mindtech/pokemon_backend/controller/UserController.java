@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/pokemons")
-    public List<Pokemon> getPokemons(@PathVariable Integer userId) {
+    public List<Pokemon> getUserPokemons(@PathVariable Integer userId) {
         return userService.getUserPokemons(userId);
     }
     @GetMapping

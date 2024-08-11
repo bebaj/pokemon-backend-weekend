@@ -1,10 +1,14 @@
 package com.mindtech.pokemon_backend.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name="users")
 public class User{
     @Id
@@ -17,42 +21,11 @@ public class User{
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pokemon> pokemons;
-    public User() {
 
-    }
 
-    public User(int id, String username, String password, List<Pokemon> pokemons) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.pokemons = pokemons;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public List<Pokemon> getPokemons() {
-        return pokemons;
+    public void addPokemon(Pokemon pokemon) {
+        this.pokemons.add(pokemon);
+        pokemon.setUser(this);
     }
 
     public void setPokemons(List<Pokemon> pokemons) {
