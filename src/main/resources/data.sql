@@ -1,6 +1,7 @@
 INSERT INTO users (username, password)
 VALUES
     ('ash_ketchum', 'pikachu123'),
+    ('asd', 'asd'),
     ('misty_waterflower', 'starmie456'),
     ('brock_pewter', 'onix789');
 INSERT INTO pokemons (name, weight, height, abilities)
